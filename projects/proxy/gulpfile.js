@@ -45,7 +45,6 @@ gulp.task('serve', ['serve:mock'], function () {
         }
       }
     },
-    files: ["**/*.html", "**/*.js", "**/*.css"],
 
     // >>> proxyサーバーの設定
     proxy: {
@@ -67,4 +66,8 @@ gulp.task('serve', ['serve:mock'], function () {
     //}
     // <<<
   });
+
+  // 変更を監視するファイルを指定
+  gulp.watch(['src/**/{*.css,*.html,*.js}'], reload);
+  gulp.watch(['styles/**/{*.css,*.html}'], reload);
 });
