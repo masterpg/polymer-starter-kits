@@ -1,0 +1,214 @@
+<!--
+@license
+Copyright (c) 2015 livedeveloper.net Authors
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="app-view">
+
+  <template>
+
+    <!--  スタイルモジュールをインクルード(インポートはapp.htmlで行っている) -->
+    <style include="shared-styles">
+
+      /**************************************************
+        エレメントスタイル
+      **************************************************/
+
+      #drawerToolbar {
+        color: var(--secondary-text-color);
+        background-color: var(--drawer-menu-color);
+        border-bottom: var(--drawer-toolbar-border-color);
+      }
+
+      paper-scroll-header-panel {
+        height: 100%;
+      }
+
+      /* メインタイトル(「Polymer Starter Kit」)のスタイル */
+      paper-toolbar.tall .app-name {
+        font-size: 40px;
+        font-weight: 300;
+
+        /* スクロールによるメインタイトルのトランスフォームで必要になるルール */
+        -webkit-transform-origin: left center;
+        transform-origin: left center;
+      }
+
+      /* メインタイトルのコンテナのスタイル */
+      #mainToolbar .middle-container  {
+        height: 100%;
+        margin-left: 48px;
+      }
+
+      /* サブタイトル(「The future of the web today」)のスタイル */
+      #mainToolbar .bottom {
+        margin-left: 48px;
+
+        /* スクロールによるサブタイトルのトランスフォームで必要になるルール */
+        -webkit-transform-origin: left center;
+        transform-origin: left center;
+      }
+
+      /* 左メニューエリアのスタイル */
+      paper-menu {
+        /* メニューアイテム選択時のスタイル */
+        --paper-menu-selected-item: {
+          color: var(--default-primary-color);
+          background-color: #E2E4F5;
+        };
+        /* メニューアイテムのフォーカスが当たった時のスタイル */
+        --paper-menu-focused-item: {
+          background-color: transparent;
+        };
+      }
+
+      /* メニューアイテムのスタイル */
+      paper-menu a {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        text-decoration: none;
+        color: var(--menu-link-color);
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 48px;
+        padding: 0 16px;
+        cursor: pointer;
+      }
+
+      /* メニューアイテムのアイコンのスタイル */
+      paper-menu a iron-icon {
+        margin-right: 33px;
+        opacity: 0.54;
+      }
+
+      /* Height of the scroll area */
+      .content {
+        height: 900px;
+      }
+
+      /**************************************************
+        レスポンシブ対応
+      **************************************************/
+
+      /* Small */
+      /* (定義された値以下の場合にルールが適用されます) */
+      @media (max-width: 600px) {
+        /* メインタイトル(「Polymer Starter Kit」)のスタイル */
+        paper-toolbar.tall .app-name {
+          font-size: 24px;
+          font-weight: 400;
+        }
+      }
+
+      /* Tablet+ */
+      /* (定義された値以上の場合にルールが適用されます) */
+      @media (min-width: 601px) {
+        paper-drawer-panel {
+          --paper-drawer-panel-left-drawer-container: {
+            border-right: 1px solid rgba(0, 0, 0, 0.14);
+          };
+        }
+
+        iron-pages {
+          padding: 48px 62px;
+        }
+      }
+    </style>
+
+    <!-- 600px以下の場合に左メニューエリアが自動的に閉じる -->
+    <paper-drawer-panel id="paperDrawerPanel" responsive-width="600px">
+
+      <!--------------------------------------------------
+        左メニューエリア
+      --------------------------------------------------->
+
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- ツールバー -->
+        <paper-toolbar id="drawerToolbar">
+          <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
+
+        <!-- コンテンツ -->
+        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
+          <!-- Home(ホームビュー) -->
+          <a data-route="home" href="../../home" on-click="_onDataRouteClick">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a>
+          <!-- Users(ユーザー一覧ビュー) -->
+          <a data-route="users" href="../../users" on-click="_onDataRouteClick">
+            <iron-icon icon="info"></iron-icon>
+            <span>Users</span>
+          </a>
+          <!-- Contact(コンタクトビュー) -->
+          <a data-route="contact" href="../../contact" on-click="_onDataRouteClick">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Contact</span>
+          </a>
+        </paper-menu>
+
+      </paper-scroll-header-panel>
+
+      <!--------------------------------------------------
+        メインエリア
+      --------------------------------------------------->
+
+      <paper-scroll-header-panel main condenses keep-condensed-header on-paper-header-transform="_transformHeader">
+
+        <!-- ツールバー -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <span class="flex"></span>
+          <!-- ツールバーアイコン -->
+          <paper-icon-button icon="refresh"></paper-icon-button>
+          <paper-icon-button icon="search"></paper-icon-button>
+          <!-- アプリケーションメインタイトル -->
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">Polymer Starter Kit</div>
+          </div>
+          <!-- アプリケーションサブタイトルラベル -->
+          <div class="bottom bottom-container center horizontal layout">
+            <div class="bottom-title paper-font-subhead">The future of the web today</div>
+          </div>
+        </paper-toolbar>
+
+        <!-- コンテンツ -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+            <!-- Home(ホームビュー) -->
+            <section data-route="home">
+              <home-view></home-view>
+            </section>
+            <!-- Users(ユーザー一覧ビュー) -->
+            <section data-route="users">
+              <users-view></users-view>
+            </section>
+            <!-- User Info(ユーザー情報ビュー)  -->
+            <section data-route="user-info">
+              <user-info-view></user-info-view>
+            </section>
+            <!-- Contact(コンタクトビュー) -->
+            <section data-route="contact">
+              <contact-view></contact-view>
+            </section>
+          </iron-pages>
+        </div>
+
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+  </template>
+
+  <!-- このビューのスクリプトを読み込み -->
+  <script src="app-view.js"></script>
+
+</dom-module>

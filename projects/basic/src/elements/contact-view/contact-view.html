@@ -1,0 +1,38 @@
+<!--
+@license
+Copyright (c) 2015 livedeveloper.net Authors
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="contact-view">
+
+  <template>
+
+    <!--  スタイルモジュールをインクルード(インポートはapp.htmlで行っている) -->
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <paper-material elevation="1">
+      <h2 class="page-title">Contact</h2>
+      <p>This is the contact section</p>
+    </paper-material>
+
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'contact-view'
+      });
+    })();
+  </script>
+
+</dom-module>

@@ -1,0 +1,58 @@
+<!--
+@license
+Copyright (c) 2015 livedeveloper.net Authors
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="user-info-view">
+
+  <template>
+
+    <!--  スタイルモジュールをインクルード(インポートはapp.htmlで行っている) -->
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <paper-material elevation="1">
+      <h2 class="page-title">
+        User: <span>{{user.first}}</span> <span>{{user.last}}</span>
+      </h2>
+
+      <div>
+        <span>id: <span>{{user.id}}</span></span>,
+        <span>first: <span>{{user.first}}</span></span>,
+        <span>last: <span>{{user.last}}</span></span>
+      </div>
+
+      <br>
+
+      <div>
+         <!-- ページ遷移先のパスは基準パスから指定する必要がある -->
+        <a href="../../../users">Return to Users</a>
+      </div>
+    </paper-material>
+
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'user-info-view',
+        properties: {
+          user: {
+            type: Object,
+            notify: true
+          }
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
