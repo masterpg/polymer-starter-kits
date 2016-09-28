@@ -1,5 +1,5 @@
 {
-  "name": "masterpg-polymer-starter-kit",
+  "name": "starter-kit-proxy",
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#^1.6.1",

@@ -1,5 +1,5 @@
 {
-  "name": "masterpg-polymer-starter-kit",
+  "name": "starer-kit-image-task",
   "private": true,
   "dependencies": {
     "polymer": "Polymer/polymer#^1.6.1",
