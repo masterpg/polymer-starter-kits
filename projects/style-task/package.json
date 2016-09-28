@@ -1,0 +1,25 @@
+{
+  "name": "starer-kit-style-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "browser-sync": "^2.9.11",
+    "connect-history-api-fallback": "^1.1.0",
+    "easymock": "^0.2.17",
+    "gulp": "^3.9.0",
+    "gulp-changed": "^1.3.0",
+    "gulp-html-autoprefixer": "^0.0.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-pleeease": "^2.0.1",
+    "gulp-plumber": "^1.0.1",
+    "gulp-util": "^3.0.7",
+    "map-stream": "^0.0.6",
+    "merge-stream": "^1.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "livedeveloper Authors",
+  "license": "MIT"
+}
