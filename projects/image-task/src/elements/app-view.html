@@ -1,0 +1,192 @@
+<!--
+@license
+Copyright (c) 2015 livedeveloper.net Authors
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="app-view">
+
+  <template>
+
+    <!--  スタイルモジュールをインクルード(インポートはapp.htmlで行っている) -->
+    <style include="shared-styles">
+
+      /**************************************************
+        エレメントスタイル
+      **************************************************/
+
+      #drawerToolbar {
+        color: var(--secondary-text-color);
+        background-color: var(--drawer-menu-color);
+        border-bottom: var(--drawer-toolbar-border-color);
+      }
+
+      paper-scroll-header-panel {
+        height: 100%;
+      }
+
+      /* メインタイトル(「Polymer Starter Kit」)のスタイル */
+      paper-toolbar.tall .app-name {
+        font-size: 40px;
+        font-weight: 300;
+
+        /* スクロールによるメインタイトルのトランスフォームで必要になるルール */
+        transform-origin: left center;
+      }
+
+      /* メインタイトルのコンテナのスタイル */
+      #mainToolbar .middle-container  {
+        height: 100%;
+        margin-left: 48px;
+      }
+
+      /* サブタイトル(「The future of the web today」)のスタイル */
+      #mainToolbar .bottom {
+        margin-left: 48px;
+
+        /* スクロールによるサブタイトルのトランスフォームで必要になるルール */
+        transform-origin: left center;
+      }
+
+      /* Height of the scroll area */
+      .content {
+        height: 900px;
+      }
+
+      /**************************************************
+        レスポンシブ対応
+      **************************************************/
+
+      /* Small */
+      /* (定義された値以下の場合にルールが適用されます) */
+      @media (max-width: 600px) {
+        /* メインタイトル(「Polymer Starter Kit」)のスタイル */
+        paper-toolbar.tall .app-name {
+          font-size: 24px;
+          font-weight: 400;
+        }
+      }
+
+      /* Tablet+ */
+      /* (定義された値以上の場合にルールが適用されます) */
+      @media (min-width: 601px) {
+        paper-drawer-panel {
+          --paper-drawer-panel-left-drawer-container: {
+            border-right: 1px solid rgba(0, 0, 0, 0.14);
+          };
+        }
+
+        iron-pages {
+          padding: 48px 62px;
+        }
+      }
+    </style>
+
+    <!-- 600px以下の場合に左メニューエリアが自動的に閉じる -->
+    <paper-drawer-panel id="paperDrawerPanel" responsive-width="600px">
+
+      <!--------------------------------------------------
+        左メニューエリア
+      --------------------------------------------------->
+
+      <paper-scroll-header-panel drawer fixed>
+
+        <!-- ツールバー -->
+        <paper-toolbar id="drawerToolbar">
+          <img src="../../images/p-logo-32.png">
+          <div style="width: 20px;"></div>
+          <span class="paper-font-title">Menu</span>
+        </paper-toolbar>
+
+        <!-- コンテンツ -->
+        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]"
+                    on-iron-select="_menuOnIronSelect" on-iron-deselect="_menuOnIronDeselect">
+          <!-- Home(ホームビュー) -->
+          <menu-item data-route="home" path="/home" on-click="_onDataRouteClick">
+            <iron-icon icon="home" icon></iron-icon>
+            <span title>Home</span>
+          </menu-item>
+          <!-- Users(ユーザー一覧ビュー) -->
+          <menu-item data-route="users" path="/users" on-click="_onDataRouteClick">
+            <iron-icon icon="info" icon></iron-icon>
+            <span title>Users</span>
+          </menu-item>
+          <!-- Contact(コンタクトビュー) -->
+          <menu-item data-route="contact" path="/contact" on-click="_onDataRouteClick">
+            <iron-icon icon="mail" icon></iron-icon>
+            <span title>Contact</span>
+          </menu-item>
+        </paper-menu>
+
+      </paper-scroll-header-panel>
+
+      <!--------------------------------------------------
+        メインエリア
+      --------------------------------------------------->
+
+      <paper-scroll-header-panel main condenses keep-condensed-header on-paper-header-transform="_transformHeader">
+
+        <!-- ツールバー -->
+        <paper-toolbar id="mainToolbar" class="tall">
+          <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+          <span class="flex"></span>
+          <!-- ツールバーアイコン -->
+          <paper-icon-button icon="refresh"></paper-icon-button>
+          <paper-icon-button icon="search"></paper-icon-button>
+          <paper-icon-button icon="send" on-tap="_sendButtonOnTap"></paper-icon-button>
+          <!-- アプリケーションメインタイトル -->
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">Polymer Starter Kit</div>
+          </div>
+          <!-- アプリケーションサブタイトルラベル -->
+          <div class="bottom bottom-container center horizontal layout">
+            <div class="bottom-title paper-font-subhead">The future of the web today</div>
+          </div>
+        </paper-toolbar>
+
+        <!-- コンテンツ -->
+        <div class="content">
+          <iron-pages attr-for-selected="data-route" selected="{{route}}">
+            <!-- Home(ホームビュー) -->
+            <section data-route="home">
+              <home-view></home-view>
+            </section>
+            <!-- Users(ユーザー一覧ビュー) -->
+            <section data-route="users">
+              <users-view></users-view>
+            </section>
+            <!-- User Info(ユーザー情報ビュー)  -->
+            <section data-route="user-info">
+              <user-info-view></user-info-view>
+            </section>
+            <!-- Contact(コンタクトビュー) -->
+            <section data-route="contact">
+              <contact-view></contact-view>
+            </section>
+          </iron-pages>
+        </div>
+
+      </paper-scroll-header-panel>
+    </paper-drawer-panel>
+
+    <!--------------------------------------------------
+      API
+    --------------------------------------------------->
+
+    <iron-ajax
+      id="helloAjax"
+      url="/api/hello"
+      method="GET"
+      handle-as="json"
+      on-response="_helloAjaxOnResponse"></iron-ajax>
+
+  </template>
+
+  <!-- このビューのスクリプトを読み込み -->
+  <script src="app-view.js"></script>
+
+</dom-module>
