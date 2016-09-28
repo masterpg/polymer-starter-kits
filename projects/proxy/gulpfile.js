@@ -45,6 +45,7 @@ gulp.task('serve', ['serve:mock'], function () {
         }
       }
     },
+    files: ["**/*.html", "**/*.js", "**/*.css"],
 
     // >>> proxyサーバーの設定
     proxy: {
