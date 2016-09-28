@@ -1,0 +1,24 @@
+{
+  "name": "starer-kit-sass-task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "browser-sync": "^2.9.11",
+    "connect-history-api-fallback": "^1.1.0",
+    "easymock": "^0.2.17",
+    "gulp": "^3.9.0",
+    "gulp-debug": "^2.1.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-pleeease": "^2.0.1",
+    "gulp-ruby-sass": "^2.0.5",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "map-stream": "^0.0.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "livedeveloper Authors",
+  "license": "MIT"
+}
