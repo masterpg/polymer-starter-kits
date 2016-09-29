@@ -1,0 +1,102 @@
+<!--
+@license
+Copyright (c) 2015 livedeveloper.net Authors
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="home-view">
+
+  <template>
+
+    <!--  スタイルモジュールをインクルード(インポートはapp.htmlで行っている) -->
+    <style include="shared-styles">
+      :host {
+        display: block;
+      }
+    </style>
+
+    <paper-material elevation="1" class="material">
+      <div>
+        <h2 class="page-title"><span>{{greeting}}</span></h2>
+        <span class="paper-font-body2">Update text to change the greeting.</span>
+        <!-- Listens for "input" event and sets greeting to <input>.value -->
+        <input class="paper-font-body2" value="{{greeting::input}}">
+      </div>
+      <p class="paper-font-subhead">You now have:</p>
+      <div>
+        <ul>
+          <template is="dom-repeat" items="{{items}}">
+            <li><span class="paper-font-body1">{{item}}</span></li>
+          </template>
+        </ul>
+      </div>
+      <p class="paper-font-body2">Looking for more Web App layouts? Check out our
+        <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also
+        <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
+    </paper-material>
+
+    <paper-material elevation="1">
+      <p class="paper-font-body2">This is another card.</p>
+    </paper-material>
+
+    <paper-material elevation="1" class="paper-font-body2">
+      <h1 id="license">License</h1>
+      <p>Everything in this repo is BSD style license unless otherwise specified.</p>
+      <p>Copyright (c) 2015 The Polymer Authors. All rights reserved.</p>
+      <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+      <ul>
+        <li>Redistributions of source code must retain the above copyright
+            notice, this list of conditions and the following disclaimer.
+        </li>
+        <li>Redistributions in binary form must reproduce the above
+            copyright notice, this list of conditions and the following disclaimer
+            in the documentation and/or other materials provided with the
+            distribution.
+        </li>
+        <li>Neither the name of Google Inc. nor the names of its
+            contributors may be used to endorse or promote products derived from
+            this software without specific prior written permission.
+        </li>
+      </ul>
+      <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+    </paper-material>
+
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'home-view',
+
+        properties: {
+          greeting: {
+            type: String,
+            value: 'Welcome!',
+            notify: true
+          },
+          items: {
+            type: Array,
+            notify: true
+          }
+        },
+
+        ready: function() {
+          this.items = [
+            'Responsive Web App boilerplate',
+            'Iron Elements and Paper Elements',
+            'End-to-end Build Tooling (including Vulcanize)',
+            'Unit testing with Web Component Tester',
+            'Routing with Page.js',
+            'Offline support with the Platinum Service Worker Elements'
+          ];
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

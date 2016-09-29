@@ -1,0 +1,87 @@
+<!--
+@license
+Copyright (c) 2015 livedeveloper.net Authors
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
+-->
+
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="menu-item">
+  <template>
+
+    <style>
+      /* mainContainerタグの通常のスタイル */
+      #mainContainer {
+        @apply(--layout-horizontal);
+        @apply(--layout-center);
+        text-decoration: none;
+        color: var(--menu-link-color);
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 24px;
+        min-height: 48px;
+        padding: 0 16px;
+        cursor: pointer;
+      }
+
+      /* 選択状態になった場合のmainContainerタグのスタイル */
+      #mainContainer.selected {
+        color: var(--default-primary-color);
+        font-weight: bold;
+        background-color: #E2E4F5;
+      }
+
+      /* アイコンのスタイル */
+      #mainContainer ::content > [icon] {
+        margin-right: 33px;
+        opacity: 0.54;
+      }
+    </style>
+
+    <div id="mainContainer" on-tap="_mainContainerOnTap">
+      <content select="[icon]"></content>
+      <content select="[title]"></content>
+    </div>
+
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+      Polymer({
+        is: 'menu-item',
+        properties: {
+          path: {
+            type: String,
+            notify: true
+          }
+        },
+        /**
+         * このエレメントの選択状態を設定します。
+         * @param {boolean} value 選択状態を指定。
+         */
+        select: function (value) {
+          // 選択状態によってスタイルを切り替え
+          if (value) {
+            this.$.mainContainer.classList.add('selected');
+          } else {
+            this.$.mainContainer.classList.remove('selected');
+          }
+        },
+        /**
+         * mainContainerタグがタップされた際のハンドラです。
+         */
+        _mainContainerOnTap: function (e) {
+          e.preventDefault();
+          // pathプロパティに設定されたパスへページ遷移する
+          page.show(this.path);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+/*
+ Copyright (c) 2015 livedeveloper.net Authors
+ Released under the MIT license
+ http://opensource.org/licenses/mit-license.php
+ */
+
+body {
+  background: #fafafa;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
